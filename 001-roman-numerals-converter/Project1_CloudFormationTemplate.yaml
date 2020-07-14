@@ -87,4 +87,4 @@ Resources:
 Outputs:
   PublicIp:
     Description: Server Public IP
-    Value: !GetAtt Server.PublicIp
+    Value: !GetAtt Server.PublicIpSS
