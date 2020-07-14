@@ -1,0 +1,93 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'AWS CloudFormation Sample Template UpdateTutorial Part 3: Sample template
+  that can be used to test EC2 updates. **WARNING** This template creates an Amazon
+  Ec2 Instance. You will be billed for the AWS resources used if you create a stack
+  from this template.'
+Parameters:
+
+  LinuxAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+
+  ENV:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+
+  VPCId:
+    Description: VPC ID of the Lab VPC
+    Type: String
+
+  VPCPublicSubnetId:
+    Description: Subnet ID of the public subnet within the Lab VPC
+    Type: String
+
+Mappings:
+  EC2TypeConfig:
+    prod:
+      InstanceType: t2.small
+    dev:
+      InstanceType: t2.micro
+
+Resources:
+  WebServerInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - ec2-role-2
+
+  WebServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable HTTP
+      VpcId: !Ref VPCId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+ 
+  Server:
+    Type: AWS::EC2::Instance
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Web server - port 80 and 22
+      
+      ImageId: !Ref LinuxAmiId
+      InstanceType: !FindInMap [EC2TypeConfig, !Ref ENV, InstanceType]
+      NetworkInterfaces:
+        - DeviceIndex: 0
+          AssociatePublicIpAddress: true
+          SubnetId: !Ref VPCPublicSubnetId
+          GroupSet:
+            - !Ref WebServerSecurityGroup
+      IamInstanceProfile: !Ref WebServerInstanceProfile
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash
+            yum update -y
+            yum install python3 -y
+            pip3 install flask
+            mkdir templates
+            cd templates
+            wget https://raw.githubusercontent.com/sibelclarus/clarusway-aws-workshop/master/001-roman-numerals-converter/templates/index.html
+            wget https://raw.githubusercontent.com/sibelclarus/clarusway-aws-workshop/master/001-roman-numerals-converter/templates/result.html
+            cd ..
+            wget https://raw.githubusercontent.com/sibelclarus/clarusway-aws-workshop/master/001-roman-numerals-converter/romanNumeralConvertor.py
+            python3 romennumerals.py
+            
+Outputs:
+  PublicIp:
+    Description: Server Public IP
+    Value: !GetAtt Server.PublicIp
+   
