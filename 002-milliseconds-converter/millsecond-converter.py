@@ -14,19 +14,19 @@ def convert(milliseconds):
 
 @app.route('/', methods = ['GET']) #anasayfa  # get degerleri aliyoruz,#post hafizaya alma,goruntulemiyor.yazdirma
 def main_get():
-    return render_template ('index.html', developer_name = 'Aysun',not_valid = False) 
+    return render_template ('index.html', developer_name = 'Sibel',not_valid = False) 
 
 @app.route('/', methods = ['POST'])
 def main_post():
     alpha = request.form ["number"]
     if not alpha.isdigit():
-        return render_template ('index.html', developer_name = 'Aysun',not_valid = True) 
+        return render_template ('index.html', developer_name = 'Sibel',not_valid = True) 
     
     number =int(alpha)
     if (0 > number):
-        return render_template ('index.html', developer_name = 'Aysun',not_valid = True)
+        return render_template ('index.html', developer_name = 'Sibel',not_valid = True)
 
-    return render_template ('result.html', milliseconds=number, result= convert (number), developer_name = 'Aysun') 
+    return render_template ('result.html', milliseconds=number, result= convert (number), developer_name = 'Sibel') 
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 80, debug = True)
