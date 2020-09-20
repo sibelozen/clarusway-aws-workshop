@@ -84,7 +84,7 @@ Resources:
             wget https://raw.githubusercontent.com/sibelclarus/clarusway-aws-workshop/master/001-roman-numerals-converter/templates/result.html
             cd ..
             wget https://raw.githubusercontent.com/sibelclarus/clarusway-aws-workshop/master/001-roman-numerals-converter/app.py
-            python3 romanNumeralConvertor.py
+            python3 app.py
             
 Outputs:
   PublicIp:
