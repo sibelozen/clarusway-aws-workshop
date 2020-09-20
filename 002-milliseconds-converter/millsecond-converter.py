@@ -12,7 +12,7 @@ def convert(milliseconds):
     seconds = ms_left // 1000 
     return f"{hours} hour/s " *(hours != 0) + f"{minutes} minute/s " *(minutes != 0) + f"{seconds} second/s " *(seconds != 0) or f"just {milliseconds} millisecond/s " *(milliseconds < 1000) 
 
-@app.route('/', methods = ['GET']) #anasayfa  # get degerleri aliyoruz,#post hafizaya alma,goruntulemiyor.yazdirma
+@app.route('/', methods = ['GET']) 
 def main_get():
     return render_template ('index.html', developer_name = 'Sibel',not_valid = False) 
 
@@ -29,6 +29,6 @@ def main_post():
     return render_template ('result.html', milliseconds=number, result= convert (number), developer_name = 'Sibel') 
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port = 80, debug = True)
-    #app.run(debug=True)  
+    # app.run(host = '0.0.0.0', port = 80)
+    app.run(debug=True)  
     
