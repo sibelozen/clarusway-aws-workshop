@@ -139,8 +139,8 @@ Resources:
             wget https://raw.githubusercontent.com/sibelclarus/clarusway-aws-workshop/master/002-milliseconds-converter/templates/index.html
             wget https://raw.githubusercontent.com/sibelclarus/clarusway-aws-workshop/master/002-milliseconds-converter/templates/result.html
             cd ..
-            wget 
-            python3 milliseconds_converter.py
+            wget https://raw.githubusercontent.com/sibelclarus/clarusway-aws-workshop/master/002-milliseconds-converter/millisecond-converter.py
+            python3 millisecond-converter.py
             
 Outputs:
   WebsiteURL:
