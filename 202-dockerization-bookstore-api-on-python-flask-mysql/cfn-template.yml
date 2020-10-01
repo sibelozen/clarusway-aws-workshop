@@ -46,7 +46,7 @@ Resources:
           -o /usr/local/bin/docker-compose
           chmod +x /usr/local/bin/docker-compose
           TOKEN="6373258d3507d2339191e04bf5262d665f34feee"
-          FOLDER="https://$TOKEN@raw.githubusercontent.com/clarusway/clarusway-aws-devops-1-20/master/devops/projects/202-dockerization-bookstore-api-on-python-flask-mysql/"
+          FOLDER="https://$TOKEN@raw.githubusercontent.com/https://sibelclarus/clarusway-aws-workshop/tree/master/202-dockerization-bookstore-api-on-python-flask-mysql"
           curl -s --create-dirs -o "/home/ec2-user/bookstore-api/bookstore-api.py" -L "$FOLDER"bookstore-api.py
           curl -s --create-dirs -o "/home/ec2-user/bookstore-api/requirements.txt" -L "$FOLDER"requirements.txt
           curl -s --create-dirs -o "/home/ec2-user/bookstore-api/Dockerfile" -L "$FOLDER"Dockerfile
